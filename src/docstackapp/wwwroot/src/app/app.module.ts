@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
 import { CharacterListComponent, CharacterService } from './characters';
+import { UPLOAD_DIRECTIVES } from 'ng2-uploader/ng2-uploader';
 
 import '../styles.scss';
 
@@ -13,7 +14,8 @@ import '../styles.scss';
     declarations: [
         AppComponent,
         HomeComponent,
-        CharacterListComponent
+        CharacterListComponent,
+        UPLOAD_DIRECTIVES
     ],
     imports: [
         UniversalModule,

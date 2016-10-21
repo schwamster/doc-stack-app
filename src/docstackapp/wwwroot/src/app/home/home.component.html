@@ -1,8 +1,43 @@
 <div class="jumbotron">
     <div class="container">
-        <h1>Home</h1>
-        <p>{{message}}</p>
-        <p><a class="btn btn-primary btn-lg" href="https://github.com/sgbj/generator-aspnetcore-angular2" role="button">GitHub</a></p>
-        <span class="fa fa-calculator" style="text-align:right">{{time}}</span>
+        <div class="row">
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary btn-file">Browse</span>
+                    <input type="file" style="display: none;"
+                           ngFileSelect
+                           [options]="options"
+                           (onUpload)="handleUpload($event)" multiple>
+                </label>
+                <input type="text" class="form-control" placeholder="Drop files here" readonly="" value="{{fileToUpload}}"
+                       ngFileDrop
+                       [options]="options"
+                       (onUpload)="handleUpload($event)"
+                       [ngClass]="{'file-over': hasBaseDropZoneOver}"
+                       (onFileOver)="fileOverBase($event)">
+            </div>
+            <span class="help-block">
+                Click on the 'Browse' button to upload a document
+            </span>
+            <!-- drag & drop file example-->
+            <style>
+                /*.drop-visualization {
+                    height: 50px;
+                    border: dotted 3px #737373;
+                }*/
+
+                .file-over {
+                    border: dotted 3px;
+                }
+
+                /* Default class applied to drop zones on over */
+            </style>
+
+            <div>
+                Response: {{ uploadFile | json }} <i *ngIf="uploading" class="fa fa-spinner fa-spin"></i>
+            </div>
+
+        </div>
+
     </div>
 </div>

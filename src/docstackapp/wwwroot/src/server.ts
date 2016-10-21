@@ -12,11 +12,10 @@ declare var Zone: any;
 
 export default function (params: any): Promise<{ html: string, globals?: any }> {
     return new Promise(function (resolve, reject) {
-        var result = '<h1>Hello world!</h1>'
-            + '<p>Current time in Node is: ' + new Date() + '</p>'
-            + '<p>Request path is: ' + params.location.path + '</p>'
-            + '<p>Absolute URL is: ' + params.absoluteUrl + '</p>';
-
+        var result = '<div class="splash">'
+            + '<div class="message"><span><img alt="Brand" class="logo" src="../../logo.png"> docStack</span></div>'
+            + '<i class="fa fa-spinner fa-spin"> </i>'
+            + '</div>';
         resolve({ html: result });
     });
 

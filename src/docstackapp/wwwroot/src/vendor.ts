@@ -20,3 +20,4 @@ import 'ng2-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'moment';
 import 'font-awesome/css/font-awesome.css';
+import 'ng2-uploader'
