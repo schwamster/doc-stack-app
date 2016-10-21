@@ -11,23 +11,34 @@ const platform = platformNodeDynamic();
 declare var Zone: any;
 
 export default function (params: any): Promise<{ html: string, globals?: any }> {
-    return new Promise((resolve, reject) => {
-        const requestZone = Zone.current.fork({
-            name: 'angular-universal request',
-            properties: {
-                baseUrl: '/',
-                requestUrl: params.url,
-                originUrl: params.origin,
-                preboot: false,
-                document: '<!DOCTYPE html><html><head></head><body><app-root></app-root></body></html>'
-            },
-            onHandleError: (parentZone, currentZone, targetZone, error) => {
-                reject(error);
-                return true;
-            }
-        });
-        return requestZone.run(() => platform.serializeModule(AppModule)).then(html => {
-            resolve({ html: html });
-        }, reject);
+    return new Promise(function (resolve, reject) {
+        var result = '<h1>Hello world!</h1>'
+            + '<p>Current time in Node is: ' + new Date() + '</p>'
+            + '<p>Request path is: ' + params.location.path + '</p>'
+            + '<p>Absolute URL is: ' + params.absoluteUrl + '</p>';
+
+        resolve({ html: result });
     });
+
+    //return new Promise((resolve, reject) => {
+    //    const requestZone = Zone.current.fork({
+    //        name: 'angular-universal request',
+    //        properties: {
+    //            baseUrl: '/',
+    //            requestUrl: params.url,
+    //            originUrl: params.origin,
+    //            preboot: false,
+    //            document: '<!DOCTYPE html><html><head></head><body><app-root></app-root></body></html>'
+    //        },
+    //        onHandleError: (parentZone, currentZone, targetZone, error) => {
+    //            reject(error);
+    //            return true;
+    //        }
+    //    });
+
+    //    return requestZone.run(() => platform.serializeModule(AppModule)).then(html => {
+    //        resolve({ html: html });
+    //    }, reject);
+    //});
+
 }

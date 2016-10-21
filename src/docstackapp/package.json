@@ -40,7 +40,9 @@
     "aspnet-webpack": "^1.0.11",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.6.3",
     "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.15.1",
     "ng2-bootstrap": "^1.1.14",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
@@ -49,6 +51,7 @@
   "devDependencies": {
     "@types/jasmine": "^2.2.34",
     "@types/karma": "^0.13.33",
+    "@types/moment": "^2.13.0",
     "@types/node": "^6.0.38",
     "@types/protractor": "^1.5.20",
     "@types/selenium-webdriver": "2.44.29",

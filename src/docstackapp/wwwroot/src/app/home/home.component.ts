@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
     message = 'Have fun working on doc-stack-app!';
+    time = 'blai';
 }
