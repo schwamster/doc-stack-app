@@ -30,10 +30,16 @@ namespace docstackapp.Controllers
         [HttpPost]
         public async Task<bool> Index(ICollection<IFormFile> file)
         {
+            var allowedContentTypes = new List<string>() { "image/png", "image/jpg", "image/jpeg", "image/gif", "application/pdf" };
             var result = false;
             var uploads = Path.Combine(environment.WebRootPath, "uploads");
             foreach (var f in file)
             {
+                if (!allowedContentTypes.Contains(f.ContentType))
+                {
+                    return false;
+                }
+
                 if (f.Length > 0)
                 {
                     using (var fileStream = new FileStream(Path.Combine(uploads, f.FileName), FileMode.Create))

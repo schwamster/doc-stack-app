@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home';
 import { CharacterListComponent, CharacterService } from './characters';
 import { UPLOAD_DIRECTIVES } from 'ng2-uploader/ng2-uploader';
-
+import { MapIteratorPipe } from './shared';
 import '../styles.scss';
 
 @NgModule({
@@ -15,7 +15,8 @@ import '../styles.scss';
         AppComponent,
         HomeComponent,
         CharacterListComponent,
-        UPLOAD_DIRECTIVES
+        UPLOAD_DIRECTIVES,
+        MapIteratorPipe
     ],
     imports: [
         UniversalModule,

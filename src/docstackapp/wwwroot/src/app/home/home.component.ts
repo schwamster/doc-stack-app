@@ -1,35 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { FileUpload } from '../shared';
 
 @Component({
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    message = 'Have fun working on doc-stack-app!';
+    private zone: NgZone;
+    uploads: { [name: string]: FileUpload; } = {};
     fileToUpload = "";
-    uploading = false;
-    uploadFile: any;
     hasBaseDropZoneOver: boolean = false;
-    options: Object = {
-        url: '/api/upload'
-    };
+    options: Object;
+
+    ngOnInit() {
+        this.zone = new NgZone({ enableLongStackTrace: false });
+        this.options = {
+            url: '/api/upload',
+            filterExtensions: true,
+            allowedExtensions: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/pdf']
+        };
+    }
 
     handleUpload(data): void {
-        this.uploading = true;
-        this.fileToUpload = "";
-        if (data && data.originalName)
-        {
-            
-            this.fileToUpload = data.originalName;
-            this.hasBaseDropZoneOver = false;
-        }
-        
-        //console.log(JSON.stringify(data));
-        if (data && data.response) {
-            data = JSON.parse(data.response);
-            this.uploadFile = data;
-            this.uploading = false;
-        }
+        this.zone.run(() => {
+            this.fileToUpload = "";
+            if (data && data.originalName) {
+                let fileUpload = new FileUpload(data.originalName, true, false, data.progress.percent);
+                this.uploads[data.originalName] = fileUpload;
+                this.fileToUpload = data.originalName;
+                this.hasBaseDropZoneOver = false;
+            }
+
+            if (data && data.response) {
+                let fileUpload: FileUpload = { name: data.originalName, uploading: false, success: false, progress: 100 };
+
+                try {
+                    data = JSON.parse(data.response);
+                    fileUpload.success = data;
+                }
+                catch (e) {
+                    fileUpload.success = false;
+                }
+
+                this.uploads[fileUpload.name] = fileUpload;
+            }
+        });
     }
 
     fileOverBase(e: any): void {
