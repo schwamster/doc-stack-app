@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FileUpload } from '../shared';
+import { UploadRejected } from 'ng2-uploader/ng2-uploader';
 
 @Component({
     templateUrl: './home.component.html',
@@ -11,6 +12,7 @@ export class HomeComponent {
     fileToUpload = "";
     hasBaseDropZoneOver: boolean = false;
     options: Object;
+    errors: string[] = [];
 
     ngOnInit() {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -19,6 +21,15 @@ export class HomeComponent {
             filterExtensions: true,
             allowedExtensions: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'application/pdf']
         };
+    }
+
+    handleUploadRejected(data: UploadRejected): void {
+        if (data.reason == UploadRejected.EXTENSION_NOT_ALLOWED) {
+            this.errors.push(`File ${data.file.name} could not be uploaded, because the extension is not allowed.`);
+        }
+        else{
+            this.errors.push(`File ${data.file.name} could not be uploaded => ${data.reason}`);
+        }
     }
 
     handleUpload(data): void {
