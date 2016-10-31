@@ -41,10 +41,13 @@ namespace docstackapp
             {
                 app.UseDeveloperExceptionPage();
 
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                if (env.EnvironmentName == "Development")
                 {
-                    HotModuleReplacement = true
-                });
+                    app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                    {
+                        HotModuleReplacement = true
+                    });
+                }
 
                 app.UseSwagger();
                 app.UseSwaggerUi();

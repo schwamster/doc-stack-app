@@ -1,15 +1,5 @@
-FROM microsoft/dotnet:latest
-
-RUN mkdir app
-
-COPY project.json /app
-
+FROM microsoft/aspnetcore:1.0.1
 WORKDIR /app
-RUN ["dotnet", "restore"]
-
-COPY . /app
-WORKDIR /app/src/ocr_service.webapi
-RUN ["dotnet", "build"]
-
-WORKDIR /app
-ENTRYPOINT ["bash", "./entrypoint.sh"]
+COPY . .
+EXPOSE 80
+ENTRYPOINT ["dotnet", "docstackapp.dll"]

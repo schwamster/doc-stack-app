@@ -22,7 +22,8 @@
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.AspNetCore.AngularServices": "1.0.0-*",
     "Microsoft.Extensions.Configuration.CommandLine": "1.0.0",
-    "Swashbuckle": "6.0.0-beta902"
+    "Swashbuckle": "6.0.0-beta902",
+    "StackExchange.Redis": "1.1.608"
   },
 
   "tools": {
@@ -61,7 +62,11 @@
       "wwwroot",
       "**/*.cshtml",
       "appsettings.json",
-      "web.config"
+      "web.config",
+      "Dockerfile",
+      "webpack.config.js",
+      "config",
+      "node_modules/aspnet-webpack"
     ],
     "exclude": [
       "wwwroot/src",
@@ -70,7 +75,7 @@
   },
 
   "scripts": {
-    "prepublish": [ "npm install", "npm run rebuild-sass", "npm run build" ],
+    "prepublish": [ "npm install", "npm run build" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }

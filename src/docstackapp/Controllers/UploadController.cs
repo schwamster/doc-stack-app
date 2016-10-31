@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using System.IO;
+using StackExchange.Redis;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -51,6 +52,11 @@ namespace docstackapp.Controllers
             }
             return result;
         }
+
+        // public void Set(){
+        //     var redis = OpenRedisConnection("172.17.0.4").GetDatabase();
+            
+        // }
                 
     }
 }

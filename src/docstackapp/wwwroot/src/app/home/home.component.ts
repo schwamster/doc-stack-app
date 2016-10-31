@@ -6,10 +6,10 @@ import { UploadRejected } from 'ng2-uploader/ng2-uploader';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     private zone: NgZone;
     uploads: { [name: string]: FileUpload; } = {};
-    fileToUpload = "";
+    fileToUpload = '';
     hasBaseDropZoneOver: boolean = false;
     options: Object;
     errors: string[] = [];
@@ -24,17 +24,16 @@ export class HomeComponent {
     }
 
     handleUploadRejected(data: UploadRejected): void {
-        if (data.reason == UploadRejected.EXTENSION_NOT_ALLOWED) {
+        if (data.reason === UploadRejected.EXTENSION_NOT_ALLOWED) {
             this.errors.push(`File ${data.file.name} could not be uploaded, because the extension is not allowed.`);
-        }
-        else{
+        } else {
             this.errors.push(`File ${data.file.name} could not be uploaded => ${data.reason}`);
         }
     }
 
     handleUpload(data): void {
         this.zone.run(() => {
-            this.fileToUpload = "";
+            this.fileToUpload = '';
             if (data && data.originalName) {
                 let fileUpload = new FileUpload(data.originalName, true, false, data.progress.percent);
                 this.uploads[data.originalName] = fileUpload;
@@ -48,8 +47,7 @@ export class HomeComponent {
                 try {
                     data = JSON.parse(data.response);
                     fileUpload.success = data;
-                }
-                catch (e) {
+                } catch (e) {
                     fileUpload.success = false;
                 }
 
