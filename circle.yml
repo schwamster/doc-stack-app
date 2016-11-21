@@ -5,5 +5,5 @@ machine:
 dependencies:
   override:
     - npm install -g angular-cli
-    - npm install --dev
+    - npm install
     
