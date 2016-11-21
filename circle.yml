@@ -4,6 +4,6 @@ machine:
 
 dependencies:
   override:
-    - npm install -g angular-cli
+    - npm install -g webpack angular-cli
     - npm install
     
