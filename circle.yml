@@ -16,7 +16,7 @@ dependencies:
     - npm install -g webpack angular-cli
     - npm install
     - ng build
-    - docker build -t schwamster/doc-stack-app:$CIRCLE_TAG .
+    - docker build -t schwamster/doc-stack-app:$CIRCLE_TAG -t schwamster/doc-stack-app:latest .
     
 deployment:
   hub:
