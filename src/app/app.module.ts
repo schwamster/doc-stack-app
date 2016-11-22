@@ -6,7 +6,8 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { AppRoutingModule } from './app.routing.module'
 
-import { UPLOAD_DIRECTIVES } from 'ng2-uploader/ng2-uploader';
+//import { UPLOAD_DIRECTIVES } from 'ng2-uploader/ng2-uploader';
+import { Ng2UploaderModule } from 'ng2-uploader'
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
@@ -18,10 +19,10 @@ import '../styles.scss';
   declarations: [
     AppComponent,
     HomeComponent,
-    MapIteratorPipe,
-    UPLOAD_DIRECTIVES
+    MapIteratorPipe
   ],
   imports: [
+    Ng2UploaderModule,
     Ng2BootstrapModule,
     AlertModule,
     BrowserModule,

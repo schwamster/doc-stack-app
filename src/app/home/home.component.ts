@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FileUpload } from '../shared';
-import { UploadRejected } from 'ng2-uploader/ng2-uploader';
+import { UploadRejected } from 'ng2-uploader/src/services/ng2-uploader';
 
 @Component({
     templateUrl: './home.component.html',
