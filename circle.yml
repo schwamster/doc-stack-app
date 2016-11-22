@@ -6,4 +6,5 @@ dependencies:
   override:
     - npm install -g webpack angular-cli
     - npm install
+    - ng build
     
