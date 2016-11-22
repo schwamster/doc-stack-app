@@ -1,3 +1,9 @@
+general:
+  branches:
+    only:
+      - master # list of branches to build
+      - /feature-.*/ # or regexes
+      
 machine:
   node:
     version: 6.1.0
