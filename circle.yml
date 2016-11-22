@@ -1,10 +1,21 @@
 machine:
   node:
     version: 6.1.0
+  
+  services:
+    - docker
 
 dependencies:
   override:
     - npm install -g webpack angular-cli
     - npm install
     - ng build
+    - docker build -t schwamster/doc-stack-app .
+    
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push schwamster/doc-stack-app
     
