@@ -13,7 +13,7 @@ machine:
 
 dependencies:
   override:
-    - echo $CIRCLE_TAG
+    - echo "$CIRCLE_TAG"
     - npm install -g webpack angular-cli
     - npm install
     - ng build
