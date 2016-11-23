@@ -25,4 +25,5 @@ deployment:
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push schwamster/doc-stack-app:$CIRCLE_TAG
+      - docker push schwamster/doc-stack-app
     
