@@ -10,16 +10,24 @@ import { AppRoutingModule } from './app.routing.module'
 import { Ng2UploaderModule } from 'ng2-uploader'
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { CallbackComponent } from './callback/callback.component';
 
 import { MapIteratorPipe } from './shared';
 
 import '../styles.scss';
+import { NavigationComponent } from './navigation/navigation.component';
+
+//services
+import { UserService } from './services/user.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MapIteratorPipe
+    MapIteratorPipe,
+    NavigationComponent,
+    CallbackComponent
   ],
   imports: [
     Ng2UploaderModule,
@@ -30,7 +38,7 @@ import '../styles.scss';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
