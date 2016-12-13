@@ -11,15 +11,22 @@
         <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link" [routerLink]="['home']">Home<span class="sr-only">(current)</span></a>
         </li>
+        <li *ngIf="isLoggedOn" class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['upload']">Upload<span class="sr-only">(current)</span></a>
+        </li>
+        <li *ngIf="isLoggedOn" class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="['admin']">Admin<span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item" [routerLinkActive]="['active']">
           <a class="nav-link" [routerLink]="['about']">About<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown pull-xs-right">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true">&nbsp;</i>Not logged in</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true">&nbsp;</i>{{userName}}</a>
           <div class="dropdown-menu" aria-labelledby="Preview">
-            <button type="button" class="dropdown-item btn" (click)="login()">Login</button>
-            <button type="button" class="dropdown-item btn" (click)="api()">Api</button>
-            <button type="button" class="dropdown-item btn" (click)="logout()">Logout</button>
+            <button *ngIf="!isLoggedOn" type="button" class="dropdown-item btn" (click)="login()">Login</button>
+            <button *ngIf="isLoggedOn" type="button" class="dropdown-item btn" (click)="settings()">Settings</button>
+            <button *ngIf="isLoggedOn" type="button" class="dropdown-item btn" (click)="api()">Api</button>
+            <button *ngIf="isLoggedOn" type="button" class="dropdown-item btn" (click)="logout()">Logout</button>
           </div>
         </li>
       </ul>

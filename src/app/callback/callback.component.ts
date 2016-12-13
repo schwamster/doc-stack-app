@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-callback',
@@ -8,12 +9,11 @@ import { UserService } from '../services/user.service';
 })
 export class CallbackComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.userService.signinRedirectCallback().then((user) => {
-      console.log(user);
-      // window.location = "index.html";
+      this.router.navigate(["upload"]);
     }).catch(function (e) {
       console.error(e);
     });

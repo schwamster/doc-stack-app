@@ -1,10 +1,20 @@
 import { Injectable } from '@angular/core';
-import { UserManager, User } from 'oidc-client'
+import { UserManager, User as OidcUser } from 'oidc-client'
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+
+export class User {
+    name: string;
+    roles: string[] = [];
+}
 
 @Injectable()
 export class UserService {
 
   userManager: UserManager;
+  private isLoggedOnSource = new ReplaySubject<boolean>(1);
+  user: User;
+  isLoggedOnItem$ = this.isLoggedOnSource.asObservable();
+  isLoggedOn = false;
 
   config = {
     authority: "http://localhost:5000",
@@ -17,32 +27,37 @@ export class UserService {
 
   constructor() {
     this.userManager = new UserManager(this.config);
+    this.setUser();
   }
 
-  getUser(): Promise<User> {
+  private setUser() {
     return this.userManager.getUser().then((user) => {
       if (user) {
-        return user;
+        let internalUser = new User();
+        internalUser.name = user.profile.name
+        this.user = internalUser;
+        this.changeLoggedOnState(true);
       }
       else {
-        return null;
+        this.user = null;
+        this.changeLoggedOnState(false);
       }
     });
   }
 
-  login(): Promise<any>{
+  login(): Promise<any> {
     return this.userManager.signinRedirect();
   }
 
   signinRedirectCallback(): Promise<User> {
     return this.userManager.signinRedirectCallback().then((user) => {
-      if (user) {
-        return user;
-      }
-      else {
-        return null;
-      }
+      return this.setUser();
     });;
+  }
+
+  changeLoggedOnState(loggedOn: boolean) {
+    this.isLoggedOn = loggedOn;
+    this.isLoggedOnSource.next(loggedOn);
   }
 
   api() {
@@ -61,7 +76,10 @@ export class UserService {
   }
 
   logout(): Promise<any> {
-    return this.userManager.signoutRedirect();
+    return this.userManager.signoutRedirect().then(()=>{
+      this.user = null;
+      this.changeLoggedOnState(false);
+    });
   }
 
 
