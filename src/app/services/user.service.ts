@@ -1,21 +1,35 @@
 import { Injectable } from '@angular/core';
 import { UserManager, User as OidcUser } from 'oidc-client'
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable } from 'rxjs/Observable';
+import { OpaqueToken } from '@angular/core';
+import 'rxjs/add/operator/toPromise';
 
 export class User {
-    name: string;
-    roles: string[] = [];
+  isLoggedOn: boolean = false;
+  name: string = "not logged in";
+  roles: string[] = [];
+}
+
+export let USERSERVICE = new OpaqueToken('user.service');
+
+export interface IUserService {
+  getUser(): Promise<User>;
+  isLoggedOnItem$: Observable<boolean>;
+  login(): Promise<any>;
+  logout(): Promise<any>;
+  api();
+  signinRedirectCallback(): Promise<boolean>;
 }
 
 @Injectable()
-export class UserService {
+export class UserService implements IUserService {
 
-  userManager: UserManager;
+  private userManager: UserManager;
   private isLoggedOnSource = new ReplaySubject<boolean>(1);
-  user: User;
   isLoggedOnItem$ = this.isLoggedOnSource.asObservable();
-  isLoggedOn = false;
 
+  //todo: config needs to come from outside
   config = {
     authority: "http://localhost:5000",
     client_id: "doc-stack-app",
@@ -27,36 +41,41 @@ export class UserService {
 
   constructor() {
     this.userManager = new UserManager(this.config);
-    this.setUser();
   }
 
-  private setUser() {
+  getUser(): Promise<User> {
     return this.userManager.getUser().then((user) => {
       if (user) {
         let internalUser = new User();
-        internalUser.name = user.profile.name
-        this.user = internalUser;
-        this.changeLoggedOnState(true);
+        internalUser.name = user.profile.name;
+        internalUser.isLoggedOn = true;
+        return internalUser;
       }
       else {
-        this.user = null;
-        this.changeLoggedOnState(false);
+        return null;
       }
     });
+
   }
 
   login(): Promise<any> {
     return this.userManager.signinRedirect();
   }
 
-  signinRedirectCallback(): Promise<User> {
-    return this.userManager.signinRedirectCallback().then((user) => {
-      return this.setUser();
+  signinRedirectCallback(): Promise<boolean> {
+    return this.userManager.signinRedirectCallback().then(() => {
+      return this.getUser().then((user) => {
+        if (!user || !user.isLoggedOn) {
+          this.changeLoggedOnState(false);
+          return false;
+        }
+        this.changeLoggedOnState(true);
+        return true;
+      });
     });;
   }
 
   changeLoggedOnState(loggedOn: boolean) {
-    this.isLoggedOn = loggedOn;
     this.isLoggedOnSource.next(loggedOn);
   }
 
@@ -76,8 +95,7 @@ export class UserService {
   }
 
   logout(): Promise<any> {
-    return this.userManager.signoutRedirect().then(()=>{
-      this.user = null;
+    return this.userManager.signoutRedirect().then(() => {
       this.changeLoggedOnState(false);
     });
   }

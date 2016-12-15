@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { USERSERVICE, IUserService } from '../services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,12 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
-
-  constructor(private userService: UserService, private router: Router) { }
+  private userService: IUserService;
+  constructor(@Inject(USERSERVICE) userService: IUserService, private router: Router) {
+    this.userService = userService;
+   }
 
   ngOnInit() {
-    this.userService.signinRedirectCallback().then((user) => {
-      this.router.navigate(["upload"]);
+    this.userService.signinRedirectCallback().then((isLoggedOn) => {
+      if(isLoggedOn) {
+        this.router.navigate(["upload"]);
+      }
     }).catch(function (e) {
       console.error(e);
     });

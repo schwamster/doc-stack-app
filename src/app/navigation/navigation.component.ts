@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { USERSERVICE, IUserService, User } from '../services';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
@@ -11,17 +11,21 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit, OnDestroy {
   isLoggedOn: boolean = false;
   isloggedOnSubscription: Subscription;
-
+  notLoggedIn: string = "Not logged in";
   user: any;
-  userName: string;
-  constructor(private userService: UserService, private router: Router) { }
+  userLabel: string = this.notLoggedIn;
+  private userService: IUserService;
+  constructor(@Inject(USERSERVICE) userService: IUserService, private router: Router) {
+    this.userService = userService;
+  }
 
   ngOnInit() {
     this.isloggedOnSubscription = this.userService.isLoggedOnItem$
-       .subscribe(isLoggedOn => {
-         this.isLoggedOn = isLoggedOn;
-         this.setUser();
-        });
+      .subscribe(isLoggedOn => {
+        this.userService.getUser().then((user) => this.setUser(user));
+      });
+
+    this.userService.getUser().then((user) => this.setUser(user));
   }
 
   ngOnDestroy() {
@@ -29,15 +33,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.isloggedOnSubscription.unsubscribe();
   }
 
-  setUser(){
-    this.user = this.userService.user;
-    if(this.user) {
-      this.userName = this.user.name;
+  setUser(user: User) {
+    this.user = user
+    if (user) {
+      this.userLabel = user.name;
+      this.isLoggedOn = user.isLoggedOn;
     }
     else {
-      this.userName = "Not logged in"
+      this.userLabel = this.notLoggedIn;
+      this.isLoggedOn = false;
     }
-    
   }
 
   login() {
@@ -52,7 +57,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.userService.api();
   }
 
-  settings(){
+  settings() {
     this.router.navigate(["settings"]);
   }
 

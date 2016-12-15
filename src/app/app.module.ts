@@ -21,9 +21,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
 
 //services
-import { UserService } from './services/user.service';
-
-
+import { USERSERVICE, MockUserService, UserService } from './services';
 
 @NgModule({
   declarations: [
@@ -45,7 +43,9 @@ import { UserService } from './services/user.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [UserService],
+  providers: [
+    { provide: USERSERVICE, useClass: MockUserService }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
