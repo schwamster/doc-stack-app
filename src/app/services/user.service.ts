@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserManager, User as OidcUser } from 'oidc-client'
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/observable';
 import { OpaqueToken } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
