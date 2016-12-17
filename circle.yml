@@ -23,8 +23,8 @@ test:
   override:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
     - npm run test
-    - sudo mv test-results.xml $CIRCLE_TEST_REPORTS/junit
-        
+    - sudo mv ./test-results.xml $CIRCLE_TEST_REPORTS/junit
+
 deployment:
   hub:
     branch: master
