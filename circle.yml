@@ -18,7 +18,13 @@ dependencies:
     - npm install
     - ng build
     - docker build -t schwamster/doc-stack-app:$CIRCLE_TAG -t schwamster/doc-stack-app:latest .
-    
+
+test:
+  override:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit
+    - npm run test
+    - sudo mv test-results.xml $CIRCLE_TEST_REPORTS/junit
+        
 deployment:
   hub:
     branch: master

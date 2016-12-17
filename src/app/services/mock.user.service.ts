@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable } from 'rxjs/Observable';
 import { IUserService, User } from './user.service';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
