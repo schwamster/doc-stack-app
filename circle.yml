@@ -33,3 +33,7 @@ deployment:
       - docker push schwamster/doc-stack-app:$CIRCLE_TAG
       - docker push schwamster/doc-stack-app
     
+notify:
+  webhooks:
+    # gitter hook
+    - url: https://webhooks.gitter.im/e/1ac2057f888b3a01ebd0
