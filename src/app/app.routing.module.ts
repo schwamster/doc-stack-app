@@ -1,6 +1,6 @@
 import { NgModule, Injectable, Inject } from '@angular/core';
 import { Routes, RouterModule, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 
 import { HomeComponent } from './home/home.component';
 import { CallbackComponent } from './callback/callback.component';
