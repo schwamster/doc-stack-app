@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome 55.0.2883 (Windows 10 0.0.0)" package="" timestamp="2016-12-18T22:13:24" id="0" hostname="bodo-laptop-xps" tests="7" errors="0" failures="0" time="0.543">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"/>
+  </properties>
+  <testcase name="AdminComponent should create" time="0.116" classname="AdminComponent"/>
+  <testcase name="CallbackComponent should create" time="0.089" classname="CallbackComponent"/>
+  <testcase name="HomeComponent should create" time="0.044" classname="HomeComponent"/>
+  <testcase name="NavigationComponent should create" time="0.156" classname="NavigationComponent"/>
+  <testcase name="Service: User should ..." time="0.032" classname="Service: User"/>
+  <testcase name="SettingsComponent should create" time="0.029" classname="SettingsComponent"/>
+  <testcase name="UploadComponent should create" time="0.077" classname="UploadComponent"/>
+  <system-out>
+    <![CDATA[
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>
