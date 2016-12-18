@@ -3,6 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
+import { Ng2UploaderModule } from 'ng2-uploader'
+import { MapIteratorPipe } from '../shared';
+import { APP_BASE_HREF } from '@angular/common';
 import { UploadComponent } from './upload.component';
 
 describe('UploadComponent', () => {
@@ -11,7 +14,11 @@ describe('UploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UploadComponent ]
+      declarations: [ UploadComponent, MapIteratorPipe ],
+      imports: [Ng2UploaderModule],
+      providers: [
+        {provide: APP_BASE_HREF, useValue: '/'}
+      ]
     })
     .compileComponents();
   }));

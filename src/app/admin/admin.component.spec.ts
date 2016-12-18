@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { AdminComponent } from './admin.component';
+import { FormsModule } from '@angular/forms';
+import { MapIteratorPipe } from '../shared';
 
 describe('AdminComponent', () => {
   let component: AdminComponent;
@@ -11,7 +13,9 @@ describe('AdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminComponent ]
+      declarations: [ 
+        AdminComponent
+      ]
     })
     .compileComponents();
   }));

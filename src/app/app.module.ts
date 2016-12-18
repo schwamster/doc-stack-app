@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app.routing.module'
 
 //import { UPLOAD_DIRECTIVES } from 'ng2-uploader/ng2-uploader';
 import { Ng2UploaderModule } from 'ng2-uploader'
-
 import { MapIteratorPipe } from './shared';
 
 import '../styles.scss';
