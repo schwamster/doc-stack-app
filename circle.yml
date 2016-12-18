@@ -18,7 +18,13 @@ dependencies:
     - npm install
     - ng build
     - docker build -t schwamster/doc-stack-app:$CIRCLE_TAG -t schwamster/doc-stack-app:latest .
-    
+
+test:
+  override:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit
+    - npm run test
+    - sudo mv ./test-results.xml $CIRCLE_TEST_REPORTS/junit
+
 deployment:
   hub:
     branch: master
@@ -27,3 +33,7 @@ deployment:
       - docker push schwamster/doc-stack-app:$CIRCLE_TAG
       - docker push schwamster/doc-stack-app
     
+notify:
+  webhooks:
+    # gitter hook
+    - url: https://webhooks.gitter.im/e/1ac2057f888b3a01ebd0
