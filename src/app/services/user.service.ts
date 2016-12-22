@@ -38,12 +38,11 @@ export class UserService implements IUserService {
     let config = {
       authority: process.env.IdentityAuthority || "http://localhost:3004",
       client_id: "doc-stack-app",
-      redirect_uri: `${baseUri}/callback`,
+      redirect_uri: `${baseUri}callback`,
       response_type: "id_token token",
       scope: "openid profile doc-stack-app-api",
-      post_logout_redirect_uri: `${baseUri}/home`,
+      post_logout_redirect_uri: `${baseUri}home`,
     };
-
     this.userManager = new UserManager(config);
   }
 
