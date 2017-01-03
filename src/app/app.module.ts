@@ -43,7 +43,7 @@ import { USERSERVICE, MockUserService, UserService } from './services';
     AppRoutingModule
   ],
   providers: [
-    { provide: USERSERVICE, useClass: MockUserService }
+    { provide: USERSERVICE, useClass: UserService }
   ],
   bootstrap: [AppComponent]
 })

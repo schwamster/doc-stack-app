@@ -1,0 +1,1 @@
+docker run -p 4200:80 -d doc-stack-app

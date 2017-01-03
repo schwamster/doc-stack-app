@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 import { UserManager, User as OidcUser } from 'oidc-client'
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
@@ -29,18 +30,27 @@ export class UserService implements IUserService {
   private isLoggedOnSource = new ReplaySubject<boolean>(1);
   isLoggedOnItem$ = this.isLoggedOnSource.asObservable();
 
-  //todo: config needs to come from outside
-  config = {
-    authority: "http://localhost:5000",
-    client_id: "doc-stack-app",
-    redirect_uri: "http://localhost:4200/callback",
-    response_type: "id_token token",
-    scope: "openid profile doc-stack-app-api",
-    post_logout_redirect_uri: "http://localhost:4200/home",
-  };
 
-  constructor() {
-    this.userManager = new UserManager(this.config);
+  constructor( @Inject(DOCUMENT) private document) {
+    //TODO: can document be null?
+    let baseUri = document.baseURI;
+
+    let config = {
+      authority: process.env.IdentityAuthority || "http://localhost:3004",
+      client_id: "doc-stack-app",
+      redirect_uri: `${baseUri}callback`,
+      response_type: "id_token token",
+      scope: "openid profile doc-stack-app-api",
+      post_logout_redirect_uri: `${baseUri}home`,
+    };
+    this.userManager = new UserManager(config);
+  }
+
+  getHostAndPort(baseUri: string): string {
+    let regexp = new RegExp('^https?://([^/]*)/?.*$');
+    let regexResult = regexp.exec(baseUri);
+    console.log(JSON.stringify(regexResult));
+    return regexResult[1];
   }
 
   getUser(): Promise<User> {
