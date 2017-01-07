@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
-import { IUserService, User } from './user.service';
+import { IUserService, User, LogonResult } from './user.service';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
 
@@ -18,14 +18,14 @@ export class MockUserService implements IUserService {
     return Promise.resolve(this.user);
   }
 
-  login(): Promise<any> {
+  login(redirect_url?: string): Promise<any> {
     this.user = { "name": "fritz", "isLoggedOn": true, "roles": [] };
     return this.router.navigate(["callback"]);
   }
 
-  signinRedirectCallback(): Promise<boolean> {
+  signinRedirectCallback(): Promise<LogonResult> {
     this.changeLoggedOnState(true);
-    return Promise.resolve(true);
+    return Promise.resolve({ isLoggedOn: true, redirectRoute:""});
   }
 
   changeLoggedOnState(loggedOn: boolean) {
@@ -36,7 +36,7 @@ export class MockUserService implements IUserService {
     console.log("unspupported in mock");
   }
 
-  logout(): Promise<any> {
+  logout(redirect_url?: string): Promise<any> {
     this.user = null;
     this.changeLoggedOnState(false);
 
