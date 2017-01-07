@@ -12,15 +12,21 @@ export class User {
   roles: string[] = [];
 }
 
+
+export class LogonResult {
+  isLoggedOn: boolean = false;
+  redirectRoute: string;
+}
+
 export let USERSERVICE = new OpaqueToken('user.service');
 
 export interface IUserService {
   getUser(): Promise<User>;
   isLoggedOnItem$: Observable<boolean>;
-  login(): Promise<any>;
-  logout(): Promise<any>;
+  login(redirect_url?: string): Promise<any>;
+  logout(redirect_url?: string): Promise<any>;
   api();
-  signinRedirectCallback(): Promise<boolean>;
+  signinRedirectCallback(): Promise<LogonResult>;
 }
 
 @Injectable()
@@ -68,19 +74,21 @@ export class UserService implements IUserService {
 
   }
 
-  login(): Promise<any> {
-    return this.userManager.signinRedirect();
+  login(redirect_url?: string): Promise<any> {
+    if (redirect_url && !redirect_url.startsWith("http"))
+      return this.userManager.signinRedirect({ state: redirect_url });
+    return this.userManager.signinRedirect({});
   }
 
-  signinRedirectCallback(): Promise<boolean> {
-    return this.userManager.signinRedirectCallback().then(() => {
+  signinRedirectCallback(): Promise<LogonResult> {
+    return this.userManager.signinRedirectCallback().then((token) => {
       return this.getUser().then((user) => {
         if (!user || !user.isLoggedOn) {
           this.changeLoggedOnState(false);
-          return false;
+          return { isLoggedOn: false, redirectRoute: "" };
         }
         this.changeLoggedOnState(true);
-        return true;
+        return { isLoggedOn: true, redirectRoute: token.state };
       });
     });;
   }
@@ -104,10 +112,17 @@ export class UserService implements IUserService {
     });
   }
 
-  logout(): Promise<any> {
-    return this.userManager.signoutRedirect().then(() => {
-      this.changeLoggedOnState(false);
-    });
+  logout(redirect_url?: string): Promise<any> {
+    if (redirect_url && !redirect_url.startsWith("http")) {
+      return this.userManager.signoutRedirect({ state: redirect_url }).then(() => {
+        this.changeLoggedOnState(false);
+      });
+    }
+    else {
+      return this.userManager.signoutRedirect().then(() => {
+        this.changeLoggedOnState(false);
+      });
+    }
   }
 
 
