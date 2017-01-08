@@ -7,12 +7,14 @@ import { CallbackComponent } from './callback/callback.component';
 import { UploadComponent } from './upload/upload.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AdminComponent } from './admin/admin.component';
+import { NotEnoughRightsComponent } from './not-enough-rights/not-enough-rights.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'upload', component: UploadComponent, canActivate: [CanActivatePermissionCheck] },
   { path: 'callback', component: CallbackComponent },
+  { path: 'not-enough-rights', component: NotEnoughRightsComponent },
   { path: 'admin', component: AdminComponent, canActivate: [CanActivatePermissionCheck], data: { roles: ["admin"] } },
   { path: 'settings', component: SettingsComponent, data: { roles: [] } },
   { path: 'about', loadChildren: './about/about.module#AboutModule' },
