@@ -2,9 +2,10 @@ import { NgModule, Injectable, Inject } from '@angular/core';
 import { Routes, RouterModule, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { USERSERVICE, IUserService, User } from './services';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 export class Permissions {
-  canActivate(userService: IUserService, roles: string[], routeUrl: string): Promise<boolean> {
+  canActivate(userService: IUserService, roles: string[], routeUrl: string, router: Router): Promise<boolean> {
     return userService.getUser().then((user) => {
       if (!user || !user.isLoggedOn) {
         this.redirectToLogon(routeUrl, userService);
@@ -15,8 +16,7 @@ export class Permissions {
         let roleToCheck = roles[i];
         if (!user.roles.find(r => r === roleToCheck)) {
           console.log(`Route ${routeUrl} forbidden. Redirecting to login page`);
-          userService.logout(routeUrl);  
-          //this.redirectToLogon(routeUrl, userService);
+          router.navigate(["not-enough-rights"]);
           return false;
         }
       }
@@ -34,7 +34,7 @@ export class Permissions {
 @Injectable()
 export class CanActivatePermissionCheck implements CanActivate {
   private userService: IUserService;
-  constructor(private permissions: Permissions, @Inject(USERSERVICE) userService: IUserService) {
+  constructor(private permissions: Permissions, @Inject(USERSERVICE) userService: IUserService, private router: Router) {
     this.userService = userService;
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
@@ -42,6 +42,6 @@ export class CanActivatePermissionCheck implements CanActivate {
     if (route.data && route.data["roles"]) {
       roles = route.data["roles"];
     }
-    return this.permissions.canActivate(this.userService, roles, route.url.toString());
+    return this.permissions.canActivate(this.userService, roles, route.url.toString(), this.router);
   }
 }

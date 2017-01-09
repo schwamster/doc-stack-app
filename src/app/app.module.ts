@@ -21,6 +21,7 @@ import { AdminComponent } from './admin/admin.component';
 
 //services
 import { USERSERVICE, MockUserService, UserService } from './services';
+import { NotEnoughRightsComponent } from './not-enough-rights/not-enough-rights.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { USERSERVICE, MockUserService, UserService } from './services';
     CallbackComponent,
     UploadComponent,
     SettingsComponent,
-    AdminComponent
+    AdminComponent,
+    NotEnoughRightsComponent
   ],
   imports: [
     Ng2UploaderModule,
