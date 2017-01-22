@@ -7,6 +7,8 @@ import { Ng2UploaderModule } from 'ng2-uploader'
 import { MapIteratorPipe } from '../shared';
 import { APP_BASE_HREF } from '@angular/common';
 import { UploadComponent } from './upload.component';
+import { USERSERVICE, MockUserService } from '../services';
+import { Router } from '@angular/router';
 
 describe('UploadComponent', () => {
   let component: UploadComponent;
@@ -17,7 +19,9 @@ describe('UploadComponent', () => {
       declarations: [ UploadComponent, MapIteratorPipe ],
       imports: [Ng2UploaderModule],
       providers: [
-        {provide: APP_BASE_HREF, useValue: '/'}
+        { provide: APP_BASE_HREF, useValue: '/'},
+        { provide: Router, useValue: null },
+        { provide: USERSERVICE, useClass: MockUserService }
       ]
     })
     .compileComponents();
