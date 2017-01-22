@@ -19,7 +19,7 @@ export class MockUserService implements IUserService {
   }
 
   login(redirect_url?: string): Promise<any> {
-    this.user = { "name": "fritz", "isLoggedOn": true, "roles": [] };
+    this.user = { "name": "fritz", "isLoggedOn": true, "roles": [], "access_token": "" };
     return this.router.navigate(["callback"]);
   }
 
