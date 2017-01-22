@@ -20,7 +20,7 @@ export class CallbackComponent implements OnInit {
           this.router.navigate([logonResult.redirectRoute]);
         }
         else {
-          this.router.navigate(["home"]);
+          this.router.navigate(["upload"]);
         }
       }
     }).catch(function (e) {

@@ -10,6 +10,7 @@ export class User {
   isLoggedOn: boolean = false;
   name: string = "not logged in";
   roles: string[] = [];
+  access_token: string;
 }
 
 
@@ -65,6 +66,7 @@ export class UserService implements IUserService {
         let internalUser = new User();
         internalUser.name = user.profile.name;
         internalUser.isLoggedOn = true;
+        internalUser.access_token = user.access_token;
         return internalUser;
       }
       else {
