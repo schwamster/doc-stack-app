@@ -47,7 +47,7 @@ export class UserService implements IUserService {
       client_id: "doc-stack-app",
       redirect_uri: `${baseUri}callback`,
       response_type: "id_token token",
-      scope: "openid profile doc-stack-app-api",
+      scope: "openid profile doc-stack-app-api doc-store",
       post_logout_redirect_uri: `${baseUri}home`,
     };
     this.userManager = new UserManager(config);
