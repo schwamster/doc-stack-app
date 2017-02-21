@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
-import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { AlertModule } from 'ng2-bootstrap';
 import { AppRoutingModule } from './app.routing.module'
 
 //import { UPLOAD_DIRECTIVES } from 'ng2-uploader/ng2-uploader';
