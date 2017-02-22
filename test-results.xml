@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
-<testsuite name="Chrome 55.0.2883 (Windows 10 0.0.0)" package="" timestamp="2017-01-22T18:55:24" id="0" hostname="bodo-laptop-xps" tests="14" errors="0" failures="0" time="6.334">
+<testsuite name="Chrome 55.0.2883 (Windows 10 0.0.0)" package="" timestamp="2017-02-22T13:42:32" id="0" hostname="bodo-laptop-xps" tests="14" errors="0" failures="0" time="0.72">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"/>
   </properties>
-  <testcase name="AdminComponent should create" time="0.339" classname="AdminComponent"/>
-  <testcase name="CallbackComponent should create" time="0.999" classname="CallbackComponent"/>
-  <testcase name="HomeComponent should create" time="0.987" classname="HomeComponent"/>
-  <testcase name="NavigationComponent should create" time="1.014" classname="NavigationComponent"/>
-  <testcase name="NotEnoughRightsComponent should create" time="0.985" classname="NotEnoughRightsComponent"/>
-  <testcase name="Service: User should ..." time="0.033" classname="Service: User"/>
-  <testcase name="Service: User getHostAndPort for http://localhost:4200/ should return localhost:4200" time="0.024" classname="Service: User"/>
-  <testcase name="Service: User getHostAndPort for https://localhost:4200/ should return localhost:4200" time="0.019" classname="Service: User"/>
-  <testcase name="Service: User getHostAndPort for https://www.somedomain.com:4200/ should return www.somedomain.com:4200" time="0.017" classname="Service: User"/>
+  <testcase name="AdminComponent should create" time="0.142" classname="AdminComponent"/>
+  <testcase name="CallbackComponent should create" time="0.115" classname="CallbackComponent"/>
+  <testcase name="HomeComponent should create" time="0.041" classname="HomeComponent"/>
+  <testcase name="NavigationComponent should create" time="0.119" classname="NavigationComponent"/>
+  <testcase name="NotEnoughRightsComponent should create" time="0.046" classname="NotEnoughRightsComponent"/>
+  <testcase name="Service: User should ..." time="0.029" classname="Service: User"/>
+  <testcase name="Service: User getHostAndPort for http://localhost:4200/ should return localhost:4200" time="0.016" classname="Service: User"/>
+  <testcase name="Service: User getHostAndPort for https://localhost:4200/ should return localhost:4200" time="0.023" classname="Service: User"/>
+  <testcase name="Service: User getHostAndPort for https://www.somedomain.com:4200/ should return www.somedomain.com:4200" time="0.012" classname="Service: User"/>
   <testcase name="Service: User getHostAndPort for https://www.somedomain.com/ should return www.somedomain.com" time="0.02" classname="Service: User"/>
-  <testcase name="Service: User getHostAndPort for https://www.somedomain.com/someotherpath/onemore should return www.somedomain.com" time="0.017" classname="Service: User"/>
-  <testcase name="Service: User getHostAndPort for https://www.somedomain.com should return www.somedomain.com" time="0.038" classname="Service: User"/>
-  <testcase name="SettingsComponent should create" time="0.831" classname="SettingsComponent"/>
-  <testcase name="UploadComponent should create" time="1.011" classname="UploadComponent"/>
+  <testcase name="Service: User getHostAndPort for https://www.somedomain.com/someotherpath/onemore should return www.somedomain.com" time="0.019" classname="Service: User"/>
+  <testcase name="Service: User getHostAndPort for https://www.somedomain.com should return www.somedomain.com" time="0.013" classname="Service: User"/>
+  <testcase name="SettingsComponent should create" time="0.026" classname="SettingsComponent"/>
+  <testcase name="UploadComponent should create" time="0.099" classname="UploadComponent"/>
   <system-out>
     <![CDATA[Chrome 55.0.2883 (Windows 10 0.0.0) LOG: '["http://localhost:4200/","localhost:4200"]'
 ,Chrome 55.0.2883 (Windows 10 0.0.0) LOG: '["https://localhost:4200/","localhost:4200"]'

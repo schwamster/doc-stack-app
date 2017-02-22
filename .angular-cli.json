@@ -1,6 +1,7 @@
 {
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "version": "1.0.0-beta.22-1",
+    "version": "1.0.0-beta.32.3",
     "name": "web"
   },
   "apps": [
@@ -13,22 +14,22 @@
       ],
       "index": "index.html",
       "main": "main.ts",
+      "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
       "prefix": "app",
-      "mobile": false,
       "styles": [
-       "styles.scss",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/font-awesome/css/font-awesome.css"
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/tether/dist/js/tether.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js"
       ],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }
@@ -48,20 +49,18 @@
       "config": "./karma.conf.js"
     }
   },
+  "lint": [
+    {
+      "files": "src/**/*.ts",
+      "project": "src/tsconfig.json"
+    },
+    {
+      "files": "e2e/**/*.ts",
+      "project": "e2e/tsconfig.json"
+    }
+  ],
   "defaults": {
     "styleExt": "css",
-    "prefixInterfaces": false,
-    "inline": {
-      "style": false,
-      "template": false
-    },
-    "spec": {
-      "class": false,
-      "component": true,
-      "directive": true,
-      "module": false,
-      "pipe": true,
-      "service": true
-    }
+    "component": {}
   }
 }
